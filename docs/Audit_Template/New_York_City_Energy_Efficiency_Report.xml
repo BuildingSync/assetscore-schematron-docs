@@ -2,13 +2,168 @@
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron">
   <sch:title>Audit Template</sch:title>
   <sch:ns prefix="auc" uri="http://buildingsync.net/schemas/bedes-auc/2019"/>
+  <sch:ns prefix="gbxml" uri="http://www.gbxml.org/schema"/>
   <sch:pattern>
     <sch:title>New York City Energy Efficiency Report</sch:title>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Measures/auc:Measure/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID]">
+      <sch:assert test="auc:Measures/auc:Measure/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text() = auc:Sites/auc:Site/auc:Buildings/auc:Building/@ID/text()">element "auc:Measures/auc:Measure/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Measures/auc:Measure/auc:LinkedPremises/auc:Site/auc:LinkedSiteID]">
+      <sch:assert test="auc:Measures/auc:Measure/auc:LinkedPremises/auc:Site/auc:LinkedSiteID/@IDref/text() = auc:Sites/auc:Site[count(auc:Buildings/auc:Building) &gt;= 1]/@ID/text()">element "auc:Measures/auc:Measure/auc:LinkedPremises/auc:Site/auc:LinkedSiteID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Reports/auc:Report/auc:AuditorContactID]">
+      <sch:assert test="auc:Reports/auc:Report/auc:AuditorContactID/@IDref/text() = auc:Contacts/auc:Contact/@ID/text()">element "auc:Reports/auc:Report/auc:AuditorContactID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Reports/auc:Report/auc:LinkedPremisesOrSystem/auc:Building/auc:LinkedBuildingID]">
+      <sch:assert test="auc:Reports/auc:Report/auc:LinkedPremisesOrSystem/auc:Building/auc:LinkedBuildingID/@IDref/text() = auc:Sites/auc:Site/auc:Buildings/auc:Building/@ID/text()">element "auc:Reports/auc:Report/auc:LinkedPremisesOrSystem/auc:Building/auc:LinkedBuildingID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Reports/auc:Report/auc:LinkedPremisesOrSystem/auc:Site/auc:LinkedSiteID]">
+      <sch:assert test="auc:Reports/auc:Report/auc:LinkedPremisesOrSystem/auc:Site/auc:LinkedSiteID/@IDref/text() = auc:Sites/auc:Site[count(auc:Buildings/auc:Building) &gt;= 1]/@ID/text()">element "auc:Reports/auc:Report/auc:LinkedPremisesOrSystem/auc:Site/auc:LinkedSiteID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Reports/auc:Report/auc:Qualifications/auc:Qualification/auc:CertifiedAuditTeamMemberContactID]">
+      <sch:assert test="auc:Reports/auc:Report/auc:Qualifications/auc:Qualification/auc:CertifiedAuditTeamMemberContactID/@IDref/text() = auc:Contacts/auc:Contact/@ID/text()">element "auc:Reports/auc:Report/auc:Qualifications/auc:Qualification/auc:CertifiedAuditTeamMemberContactID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID]">
+      <sch:assert test="auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text() = auc:Sites/auc:Sites/auc:Buildings/auc:Building/@ID/text()">element "auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:LinkedPremises/auc:Site/auc:LinkedSiteID]">
+      <sch:assert test="auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:LinkedPremises/auc:Site/auc:LinkedSiteID/@IDref/text() = auc:Sites/auc:Sites[count(auc:Buildings/auc:Building) &gt;= 1]/@ID/text()">element "auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:LinkedPremises/auc:Site/auc:LinkedSiteID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:ScenarioType/auc:PackageOfMeasures/auc:MeasureIDs/auc:MeasureID]">
+      <sch:assert test="auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:ScenarioType/auc:PackageOfMeasures/auc:MeasureIDs/auc:MeasureID/@IDref/text() = auc:Measures/auc:Measure/@ID/text()">element "auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:ScenarioType/auc:PackageOfMeasures/auc:MeasureIDs/auc:MeasureID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:AllResourceTotals/auc:AllResourceTotal/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource System ID']/auc:FieldValue]">
+      <sch:assert test="auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:AllResourceTotals/auc:AllResourceTotal/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource System ID']/auc:FieldValue/text() = auc:Systems/*/*/@ID/text()">element "auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:AllResourceTotals/auc:AllResourceTotal/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource System ID']/auc:FieldValue/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource System ID']/auc:FieldValue]">
+      <sch:assert test="auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource System ID']/auc:FieldValue/text() = auc:Systems/*/*/@ID/text()">element "auc:Reports/auc:Report/auc:Scenarios/auc:Scenario/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource System ID']/auc:FieldValue/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Whole building']/auc:ExteriorFloors/auc:ExteriorFloor/auc:ExteriorFloorID]">
+      <sch:assert test="auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Whole building']/auc:ExteriorFloors/auc:ExteriorFloor/auc:ExteriorFloorID/@IDref/text() = auc:Systems/auc:ExteriorFloorSystems/auc:ExteriorFloorSystem/@ID/text()">auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section/auc:ExteriorFloors/auc:ExteriorFloor/auc:ExteriorFloorID/@IDref/text()</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Whole building']/auc:Foundations/auc:Foundation/auc:FoundationID]">
+      <sch:assert test="auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Whole building']/auc:Foundations/auc:Foundation/auc:FoundationID/@IDref/text() = auc:Systems/auc:FoundationSystems/auc:FoundationSystem/@ID/text()">element "auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section/auc:Foundations/auc:Foundation/auc:FoundationID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Whole building']/auc:Roofs/auc:Roof/auc:RoofID]">
+      <sch:assert test="auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Whole building']/auc:Roofs/auc:Roof/auc:RoofID/@IDref/text() = auc:Systems/auc:RoofSystems/auc:RoofSystem/@ID/text()">element "auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section/auc:Roofs/auc:Roof/auc:RoofID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Whole building']/auc:Roofs/auc:Roof/auc:RoofID/auc:SkylightIDs/auc:SkylightID]">
+      <sch:assert test="auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Whole building']/auc:Roofs/auc:Roof/auc:RoofID/auc:SkylightIDs/auc:SkylightID/@IDref/text() = auc:Systems/auc:FenestrationSystems/auc:FenestrationSystem[auc:FenestrationType/auc:Skylight]/@ID/text()">element "auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section/auc:Roofs/auc:Roof/auc:RoofID/auc:SkylightIDs/auc:SkylightID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Whole building']/auc:Sides/auc:Side/auc:DoorID]">
+      <sch:assert test="auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Whole building']/auc:Sides/auc:Side/auc:DoorID/@IDref/text() = auc:Systems/auc:FenestrationSystems/auc:FenestrationSystem[auc:FenestrationType/auc:Door]/@ID/text()">auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section/auc:Sides/auc:Side/auc:DoorID/@IDref/text()</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Whole building']/auc:Sides/auc:Side/auc:WallID]">
+      <sch:assert test="auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Whole building']/auc:Sides/auc:Side/auc:WallID/@IDref/text() = auc:Systems/auc:WallSystems/auc:WallSystem/@ID/text()">element "auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section/auc:Sides/auc:Side/auc:WallID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Whole building']/auc:Sides/auc:Side/auc:WindowID]">
+      <sch:assert test="auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Whole building']/auc:Sides/auc:Side/auc:WindowID/@IDref/text() = auc:Systems/auc:FenestrationSystems/auc:FenestrationSystem[auc:FenestrationType/auc:Window]/@ID/text()">element "auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section/auc:Sides/auc:Side/auc:WindowID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Space function']/auc:ThermalZones/auc:ThermalZone/auc:HVACScheduleIDs/auc:HVACScheduleID]">
+      <sch:assert test="auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Space function']/auc:ThermalZones/auc:ThermalZone/auc:HVACScheduleIDs/auc:HVACScheduleID/@IDref/text() = auc:Schedules/auc:Schedule/@ID/text()">element "auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section/auc:ThermalZones/auc:ThermalZone/auc:HVACScheduleIDs/auc:HVACScheduleID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:AirInfiltrationSystems/auc:AirInfiltrationSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID]">
+      <sch:assert test="auc:Systems/auc:AirInfiltrationSystems/auc:AirInfiltrationSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text() = auc:Sites/auc:Site/auc:Buildings/auc:Building/@ID/text()">element "auc:Systems/auc:AirInfiltrationSystems/auc:AirInfiltrationSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:ConveyanceSystems/auc:ConveyanceSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID]">
+      <sch:assert test="auc:Systems/auc:ConveyanceSystems/auc:ConveyanceSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text() = auc:Sites/auc:Site/auc:Buildings/auc:Building/@ID/text()">element "auc:Systems/auc:ConveyanceSystems/auc:ConveyanceSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:ConveyanceSystems/auc:ConveyanceSystem/auc:LinkedPremises/auc:Section/auc:LinkedSectionID]">
+      <sch:assert test="auc:Systems/auc:ConveyanceSystems/auc:ConveyanceSystem/auc:LinkedPremises/auc:Section/auc:LinkedSectionID/@IDref/text() = auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Space function']/@ID/text()">element "auc:Systems/auc:ConveyanceSystems/auc:ConveyanceSystem/auc:LinkedPremises/auc:Section/auc:LinkedSectionID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:CriticalITSystems/auc:CriticalITSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID]">
+      <sch:assert test="auc:Systems/auc:CriticalITSystems/auc:CriticalITSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text() = auc:Sites/auc:Site/auc:Buildings/auc:Building/@ID/text()">element "auc:Systems/auc:CriticalITSystems/auc:CriticalITSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:DomesticHotWaterSystems/auc:DomesticHotWaterSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID]">
+      <sch:assert test="auc:Systems/auc:DomesticHotWaterSystems/auc:DomesticHotWaterSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text() = auc:Sites/auc:Site/auc:Buildings/auc:Building/@ID/text()">element "auc:Systems/auc:DomesticHotWaterSystems/auc:DomesticHotWaterSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:DomesticHotWaterSystems/auc:DomesticHotWaterSystem/auc:DomesticHotWaterType/auc:StorageTank/auc:TankHeatingType/auc:Indirect/auc:IndirectTankHeatingSource/auc:SpaceHeatingSystem/auc:HeatingPlantID]">
+      <sch:assert test="auc:Systems/auc:DomesticHotWaterSystems/auc:DomesticHotWaterSystem/auc:DomesticHotWaterType/auc:StorageTank/auc:TankHeatingType/auc:Indirect/auc:IndirectTankHeatingSource/auc:SpaceHeatingSystem/auc:HeatingPlantID/@IDref/text() = auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:HeatingPlants/auc:HeatingPlant/@ID/text()">element "auc:Systems/auc:DomesticHotWaterSystems/auc:DomesticHotWaterSystem/auc:DomesticHotWaterType/auc:StorageTank/auc:TankHeatingType/auc:Indirect/auc:IndirectTankHeatingSource/auc:SpaceHeatingSystem/auc:HeatingPlantID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:FanSystems/auc:FanSystem/auc:LinkedSystemIDs/auc:LinkedSystemID]">
+      <sch:assert test="auc:Systems/auc:FanSystems/auc:FanSystem/auc:LinkedSystemIDs/auc:LinkedSystemID/@IDref/text() = auc:Systems/auc:HVACSystems/auc:HVACSystem/@ID/text()">element "auc:Systems/auc:FanSystems/auc:FanSystem/auc:LinkedSystemIDs/auc:LinkedSystemID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:FoundationSystems/auc:FoundationSystem/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Linked Wall ID']/auc:FieldValue]">
+      <sch:assert test="auc:Systems/auc:FoundationSystems/auc:FoundationSystem/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Linked Wall ID']/auc:FieldValue/text() = auc:Systems/auc:WallSystems/auc:WallSystem/@ID/text()">element "auc:Systems/auc:FoundationSystems/auc:FoundationSystem/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Linked Wall ID']/auc:FieldValue/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:HeatingAndCoolingSystems/auc:CoolingSources/auc:CoolingSource/auc:CoolingSourceType/auc:CoolingPlantID]">
+      <sch:assert test="auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:HeatingAndCoolingSystems/auc:CoolingSources/auc:CoolingSource/auc:CoolingSourceType/auc:CoolingPlantID/@IDref/text() = auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:CoolingPlants/auc:CoolingPlant/@ID/text()">element "auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:HeatingAndCoolingSystems/auc:CoolingSources/auc:CoolingSource/auc:CoolingSourceType/auc:CoolingPlantID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:HeatingAndCoolingSystems/auc:Deliveries/auc:Delivery/auc:DeliveryType/auc:CentralAirDistribution/auc:ReheatPlantID]">
+      <sch:assert test="auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:HeatingAndCoolingSystems/auc:Deliveries/auc:Delivery/auc:DeliveryType/auc:CentralAirDistribution/auc:ReheatPlantID/@IDref/text() = auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:HeatingPlants/auc:HeatingPlant/@ID/text()">element "auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:HeatingAndCoolingSystems/auc:Deliveries/auc:Delivery/auc:DeliveryType/auc:CentralAirDistribution/auc:ReheatPlantID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:HeatingAndCoolingSystems/auc:HeatingSources/auc:HeatingSource/auc:HeatingSourceType/auc:SourceHeatingPlantID]">
+      <sch:assert test="auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:HeatingAndCoolingSystems/auc:HeatingSources/auc:HeatingSource/auc:HeatingSourceType/auc:SourceHeatingPlantID/@IDref/text() = auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:HeatingPlants/auc:HeatingPlant/@ID/text()">element "auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:HeatingAndCoolingSystems/auc:HeatingSources/auc:HeatingSource/auc:HeatingSourceType/auc:SourceHeatingPlantID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID]">
+      <sch:assert test="auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text() = auc:Sites/auc:Site/auc:Buildings/auc:Building/@ID/text()">element "auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:LinkedPremises/auc:Section/auc:LinkedSectionID]">
+      <sch:assert test="auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:LinkedPremises/auc:Section/auc:LinkedSectionID/@IDref/text() = auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Space function']/@ID/text()">element "auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:LinkedPremises/auc:Section/auc:LinkedSectionID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:LinkedPremises/auc:Site/auc:LinkedSiteID]">
+      <sch:assert test="auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:LinkedPremises/auc:Site/auc:LinkedSiteID/@IDref/text() = auc:Sites/auc:Site[count(auc:Buildings/auc:Building) &gt;= 1]/@ID/text()">element "auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:LinkedPremises/auc:Site/auc:LinkedSiteID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:CondenserPlants/auc:CondenserPlant/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource Site ID']/auc:FieldValue]">
+      <sch:assert test="auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:CondenserPlants/auc:CondenserPlant/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource Site ID']/auc:FieldValue/text() = auc:Sites/auc:Site[not(auc:Buildings/auc:Building)]/@ID/text()">element "auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:CondenserPlants/auc:CondenserPlant/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource Site ID']/auc:FieldValue/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:CoolingPlants/auc:CoolingPlant/auc:Chiller/auc:CondenserPlantIDs/auc:CondenserPlantID]">
+      <sch:assert test="auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:CoolingPlants/auc:CoolingPlant/auc:Chiller/auc:CondenserPlantIDs/auc:CondenserPlantID/@IDref/text() = auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:CondenserPlants/auc:CondenserPlant/@ID/text()">element "auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:CoolingPlants/auc:CoolingPlant/auc:Chiller/auc:CondenserPlantIDs/auc:CondenserPlantID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:CoolingPlants/auc:CoolingPlant/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource Site ID']/auc:FieldValue]">
+      <sch:assert test="auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:CoolingPlants/auc:CoolingPlant/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource Site ID']/auc:FieldValue/text() = auc:Sites/auc:Site[not(auc:Buildings/auc:Building)]/@ID/text()">element "auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:CoolingPlants/auc:CoolingPlant/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource Site ID']/auc:FieldValue/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:HeatingPlants/auc:HeatingPlant/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource Site ID']/auc:FieldValue]">
+      <sch:assert test="auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:HeatingPlants/auc:HeatingPlant/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource Site ID']/auc:FieldValue/text() = auc:Sites/auc:Site[not(auc:Buildings/auc:Building)]/@ID/text()">element "auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:HeatingPlants/auc:HeatingPlant/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Shared Resource Site ID']/auc:FieldValue/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:LightingSystems/auc:LightingSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID]">
+      <sch:assert test="auc:Systems/auc:LightingSystems/auc:LightingSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text() = auc:Sites/auc:Site/auc:Buildings/auc:Building/@ID/text()">element "auc:Systems/auc:LightingSystems/auc:LightingSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:LightingSystems/auc:LightingSystem/auc:LinkedPremises/auc:Section/auc:LinkedSectionID]">
+      <sch:assert test="auc:Systems/auc:LightingSystems/auc:LightingSystem/auc:LinkedPremises/auc:Section/auc:LinkedSectionID/@IDref/text() = auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Space function']/@ID/text()">element "auc:Systems/auc:LightingSystems/auc:LightingSystem/auc:LinkedPremises/auc:Section/auc:LinkedSectionID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:MotorSystems/auc:MotorSystem/auc:LinkedSystemIDs/auc:LinkedSystemID]">
+      <sch:assert test="auc:Systems/auc:MotorSystems/auc:MotorSystem/auc:LinkedSystemIDs/auc:LinkedSystemID/@IDref/text() = auc:Systems/auc:HVACSystems/auc:HVACSystem/@ID/text()">element "auc:Systems/auc:MotorSystems/auc:MotorSystem/auc:LinkedSystemIDs/auc:LinkedSystemID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:OnsiteStorageTransmissionGenerationSystems/auc:OnsiteStorageTransmissionGenerationSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID]">
+      <sch:assert test="auc:Systems/auc:OnsiteStorageTransmissionGenerationSystems/auc:OnsiteStorageTransmissionGenerationSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text() = auc:Sites/auc:Site/auc:Buildings/auc:Building/@ID/text()">element "auc:Systems/auc:OnsiteStorageTransmissionGenerationSystems/auc:OnsiteStorageTransmissionGenerationSystem/auc:LinkedPremises/auc:Building/auc:LinkedBuildingID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:PlugLoads/auc:PlugLoad[auc:PlugLoadType/text() = 'Miscellaneous Electric Load']/auc:LinkedPremises/auc:Section/auc:LinkedSectionID]">
+      <sch:assert test="auc:Systems/auc:PlugLoads/auc:PlugLoad[auc:PlugLoadType/text() = 'Miscellaneous Electric Load']/auc:LinkedPremises/auc:Section/auc:LinkedSectionID/@IDref/text() = auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Space function']/@ID/text()">element "auc:Systems/auc:PlugLoads/auc:PlugLoad[auc:PlugLoadType/text() = 'Miscellaneous Electric Load']/auc:LinkedPremises/auc:Section/auc:LinkedSectionID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:ProcessLoads/auc:ProcessLoad[auc:ProcessLoadType/text() = 'Miscellaneous Gas Load']/auc:LinkedPremises/auc:Section/auc:LinkedSectionID]">
+      <sch:assert test="auc:Systems/auc:ProcessLoads/auc:ProcessLoad[auc:ProcessLoadType/text() = 'Miscellaneous Gas Load']/auc:LinkedPremises/auc:Section/auc:LinkedSectionID/@IDref/text() = auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType/text() = 'Space function']/@ID/text()">element "auc:Systems/auc:ProcessLoads/auc:ProcessLoad[auc:ProcessLoadType/text() = 'Miscellaneous Gas Load']/auc:LinkedPremises/auc:Section/auc:LinkedSectionID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility[auc:Systems/auc:PumpSystems/auc:PumpSystem/auc:LinkedSystemIDs/auc:LinkedSystemID]">
+      <sch:assert test="(auc:Systems/auc:PumpSystems/auc:PumpSystem/auc:LinkedSystemIDs/auc:LinkedSystemID/@IDref/text() = auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:CondenserPlants/auc:CondenserPlant/@ID/text()) | (auc:Systems/auc:PumpSystems/auc:PumpSystem/auc:LinkedSystemIDs/auc:LinkedSystemID/@IDref/text() = auc:Systems/auc:HVACSystems/auc:HVACSystem/auc:Plants/auc:CoolingPlants/auc:CoolingPlant/@ID/text())">element "auc:Systems/auc:PumpSystems/auc:PumpSystem/auc:LinkedSystemIDs/auc:LinkedSystemID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Reports/auc:Report[auc:Scenarios/auc:Scenario/auc:ResourceUses/auc:ResourceUse/auc:UtilityIDs/auc:UtilityID]">
+      <sch:assert test="auc:Scenarios/auc:Scenario/auc:ResourceUses/auc:ResourceUse/auc:UtilityIDs/auc:UtilityID/@IDref/text() = auc:Utilities/auc:Utility/@ID/text()">element "auc:Scenarios/auc:Scenario/auc:ResourceUses/auc:ResourceUse/auc:UtilityIDs/auc:UtilityID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Reports/auc:Report/auc:Scenarios/auc:Scenario[auc:AllResourceTotals/auc:AllResourceTotal/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Linked Time Series ID']/auc:FieldValue]">
+      <sch:assert test="auc:AllResourceTotals/auc:AllResourceTotal/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Linked Time Series ID']/auc:FieldValue/text() = auc:TimeSeriesData/auc:TimeSeries/@ID/text()">element "auc:AllResourceTotals/auc:AllResourceTotal/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Linked Time Series ID']/auc:FieldValue/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Reports/auc:Report/auc:Scenarios/auc:Scenario[auc:TimeSeriesData/auc:TimeSeries/auc:ResourceUseID]">
+      <sch:assert test="auc:TimeSeriesData/auc:TimeSeries/auc:ResourceUseID/@IDref/text() = auc:ResourceUses/auc:ResourceUse/@ID/text()">element "auc:TimeSeriesData/auc:TimeSeries/auc:ResourceUseID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Systems/auc:HVACSystems/auc:HVACSystem[auc:OtherHVACSystems/auc:OtherHVACSystem/auc:LinkedDeliveryIDs/auc:LinkedDeliveryID]">
+      <sch:assert test="auc:OtherHVACSystems/auc:OtherHVACSystem/auc:LinkedDeliveryIDs/auc:LinkedDeliveryID/@IDref/text() = auc:HeatingAndCoolingSystems/auc:Deliveries/auc:Delivery/@ID/text()">element "auc:OtherHVACSystems/auc:OtherHVACSystem/auc:LinkedDeliveryIDs/auc:LinkedDeliveryID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Systems/auc:HVACSystems/auc:HVACSystem[auc:HeatingAndCoolingSystems/auc:Deliveries/auc:Delivery/auc:CoolingSourceID]">
+      <sch:assert test="auc:HeatingAndCoolingSystems/auc:Deliveries/auc:Delivery/auc:CoolingSourceID/@IDref/text() = auc:HeatingAndCoolingSystems/auc:CoolingSources/auc:CoolingSource/@ID/text()">element "auc:HeatingAndCoolingSystems/auc:Deliveries/auc:Delivery/auc:CoolingSourceID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Systems/auc:HVACSystems/auc:HVACSystem[auc:HeatingAndCoolingSystems/auc:Deliveries/auc:Delivery/auc:HeatingSourceID]">
+      <sch:assert test="auc:HeatingAndCoolingSystems/auc:Deliveries/auc:Delivery/auc:HeatingSourceID/@IDref/text() = auc:HeatingAndCoolingSystems/auc:HeatingSources/auc:HeatingSource/@ID/text()">element "auc:HeatingAndCoolingSystems/auc:Deliveries/auc:Delivery/auc:HeatingSourceID/@IDref/text()" is NOT FOUND</sch:assert>
+    </sch:rule>
     <sch:rule context="/">
       <sch:assert test="count(auc:BuildingSync) &gt;= 1">element "auc:BuildingSync" is REQUIRED</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync">
+      <sch:assert test="count(@version) &gt;= 1">element "@version" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:Facilities) &gt;= 1">element "auc:Facilities" is REQUIRED</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/@version">
+      <sch:assert test="contains('_2.0.0_ _2.1.0_ _2.2.0_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "2.0.0", "2.1.0", or "2.2.0"</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities">
       <sch:assert test="count(auc:Facility) &gt;= 1">element "auc:Facility" is REQUIRED</sch:assert>
@@ -47,6 +202,9 @@
       <sch:assert test="not(auc:PostalCodePlus4)">element "auc:PostalCodePlus4" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:State) &gt;= 0">element "auc:State" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:StreetAddressDetail) &gt;= 0">element "auc:StreetAddressDetail" is OPTIONAL</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Contacts/auc:Contact/auc:Address/auc:State">
+      <sch:assert test="contains('_AK_ _AL_ _AR_ _AZ_ _CA_ _CO_ _CT_ _DC_ _DE_ _FL_ _GA_ _HI_ _IA_ _ID_ _IL_ _IN_ _KS_ _KY_ _LA_ _MA_ _MD_ _ME_ _MI_ _MN_ _MO_ _MS_ _MT_ _NC_ _ND_ _NE_ _NH_ _NJ_ _NM_ _NV_ _NY_ _OH_ _OK_ _OR_ _PA_ _RI_ _SC_ _SD_ _TN_ _TX_ _UM_ _UT_ _VA_ _VT_ _WA_ _WI_ _WV_ _WY_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UM", "UT", "VA", "VT", "WA", "WI", "WV", or "WY"</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Contacts/auc:Contact/auc:Address/auc:StreetAddressDetail">
       <sch:assert test="not(auc:Complex)">element "auc:Complex" is NOT RECOMMENDED</sch:assert>
@@ -497,9 +655,16 @@
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Reports/auc:Report/auc:Scenarios/auc:Scenario[(count(auc:ScenarioType/auc:Benchmark) &gt; 0)]/auc:AllResourceTotals/auc:AllResourceTotal">
       <sch:assert test="count(@ID) &gt;= 1">element "@ID" is REQUIRED</sch:assert>
+      <sch:assert test="not(auc:BuildingEnergyUse)">element "auc:BuildingEnergyUse" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:BuildingEnergyUseIntensity)">element "auc:BuildingEnergyUseIntensity" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:ElectricitySourcedFromOnsiteRenewableSystems)">element "auc:ElectricitySourcedFromOnsiteRenewableSystems" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:EndUse) &gt;= 1">element "auc:EndUse" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:EnergyCost) &gt;= 0">element "auc:EnergyCost" is OPTIONAL</sch:assert>
+      <sch:assert test="not(auc:EnergyCostIndex)">element "auc:EnergyCostIndex" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:ExportedEnergyConsistentUnits)">element "auc:ExportedEnergyConsistentUnits" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:ImportedEnergyConsistentUnits)">element "auc:ImportedEnergyConsistentUnits" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:NetIncreaseInStoredEnergyConsistentUnits)">element "auc:NetIncreaseInStoredEnergyConsistentUnits" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:OnsiteEnergyProductionConsistentUnits)">element "auc:OnsiteEnergyProductionConsistentUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:OnsiteRenewableSystemElectricityExported)">element "auc:OnsiteRenewableSystemElectricityExported" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:ResourceBoundary) &gt;= 1">element "auc:ResourceBoundary" is REQUIRED</sch:assert>
       <sch:assert test="not(auc:SiteEnergyUse)">element "auc:SiteEnergyUse" is NOT RECOMMENDED</sch:assert>
@@ -845,6 +1010,8 @@
       <sch:assert test="not(auc:EndUse)">element "auc:EndUse" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:EnergyResource)">element "auc:EnergyResource" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:FuelUseIntensity)">element "auc:FuelUseIntensity" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:MeterID)">element "auc:MeterID" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:ParentResourceUseID)">element "auc:ParentResourceUseID" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PeakResourceUnits)">element "auc:PeakResourceUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PercentEndUse)">element "auc:PercentEndUse" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PercentResource)">element "auc:PercentResource" is NOT RECOMMENDED</sch:assert>
@@ -1029,6 +1196,8 @@
       <sch:assert test="not(auc:EndUse)">element "auc:EndUse" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:EnergyResource) &gt;= 0">element "auc:EnergyResource" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:FuelUseIntensity)">element "auc:FuelUseIntensity" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:MeterID)">element "auc:MeterID" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:ParentResourceUseID)">element "auc:ParentResourceUseID" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PeakResourceUnits)">element "auc:PeakResourceUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PercentEndUse)">element "auc:PercentEndUse" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PercentResource)">element "auc:PercentResource" is NOT RECOMMENDED</sch:assert>
@@ -1083,16 +1252,19 @@
       <sch:assert test="not(auc:CoolingDegreeDays)">element "auc:CoolingDegreeDays" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:EndTimestamp) &gt;= 0">element "auc:EndTimestamp" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:EnergyFlowDirection)">element "auc:EnergyFlowDirection" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:HDDBaseTemperature)">element "auc:HDDBaseTemperature" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:HeatingDegreeDays)">element "auc:HeatingDegreeDays" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:IntervalDuration)">element "auc:IntervalDuration" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:IntervalDurationUnits)">element "auc:IntervalDurationUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:IntervalFrequency) &gt;= 1">element "auc:IntervalFrequency" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:IntervalReading) &gt;= 0">element "auc:IntervalReading" is OPTIONAL</sch:assert>
+      <sch:assert test="not(auc:PeakType)">element "auc:PeakType" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:Phase)">element "auc:Phase" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:ReadingType) &gt;= 1">element "auc:ReadingType" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:ResourceUseID) &gt;= 0">element "auc:ResourceUseID" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:StartTimestamp) &gt;= 0">element "auc:StartTimestamp" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:TimeSeriesReadingQuantity) &gt;= 1">element "auc:TimeSeriesReadingQuantity" is REQUIRED</sch:assert>
       <sch:assert test="not(auc:UserDefinedFields)">element "auc:UserDefinedFields" is NOT RECOMMENDED</sch:assert>
-      <sch:assert test="not(auc:hDDBaseTemperature)">element "auc:hDDBaseTemperature" is NOT RECOMMENDED</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Reports/auc:Report/auc:Scenarios/auc:Scenario[(count(auc:ScenarioType/auc:Other) &gt; 0) and (auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Other Scenario Type']/auc:FieldValue/text() = 'Audit Template Annual Summary')]/auc:TimeSeriesData/auc:TimeSeries/auc:IntervalFrequency">
       <sch:assert test="contains('_Annual_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "Annual"</sch:assert>
@@ -1170,7 +1342,9 @@
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Reports/auc:Report/auc:Scenarios/auc:Scenario[(count(auc:ScenarioType/auc:Other) &gt; 0) and (auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Other Scenario Type']/auc:FieldValue/text() = 'Audit Template Available Energy')]/auc:ResourceUses/auc:ResourceUse">
       <sch:assert test="count(@ID) &gt;= 1">element "@ID" is REQUIRED</sch:assert>
+      <sch:assert test="not(auc:AnnualFuelCost)">element "auc:AnnualFuelCost" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:AnnualFuelUseConsistentUnits)">element "auc:AnnualFuelUseConsistentUnits" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:AnnualFuelUseLinkedTimeSeriesIDs)">element "auc:AnnualFuelUseLinkedTimeSeriesIDs" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:AnnualFuelUseNativeUnits)">element "auc:AnnualFuelUseNativeUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:AnnualPeakConsistentUnits)">element "auc:AnnualPeakConsistentUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:AnnualPeakNativeUnits)">element "auc:AnnualPeakNativeUnits" is NOT RECOMMENDED</sch:assert>
@@ -1178,11 +1352,14 @@
       <sch:assert test="count(auc:EndUse) &gt;= 1">element "auc:EndUse" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:EnergyResource) &gt;= 0">element "auc:EnergyResource" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:FuelUseIntensity)">element "auc:FuelUseIntensity" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:MeterID)">element "auc:MeterID" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:ParentResourceUseID)">element "auc:ParentResourceUseID" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PeakResourceUnits)">element "auc:PeakResourceUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PercentEndUse)">element "auc:PercentEndUse" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PercentResource)">element "auc:PercentResource" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:ResourceBoundary) &gt;= 1">element "auc:ResourceBoundary" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:ResourceUnits) &gt;= 0">element "auc:ResourceUnits" is OPTIONAL</sch:assert>
+      <sch:assert test="not(auc:ResourceUseNotes)">element "auc:ResourceUseNotes" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:SharedResourceSystem) &gt;= 0">element "auc:SharedResourceSystem" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:UserDefinedFields)">element "auc:UserDefinedFields" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:UtilityIDs)">element "auc:UtilityIDs" is NOT RECOMMENDED</sch:assert>
@@ -1358,16 +1535,19 @@
       <sch:assert test="not(auc:CoolingDegreeDays)">element "auc:CoolingDegreeDays" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:EndTimestamp) &gt;= 0">element "auc:EndTimestamp" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:EnergyFlowDirection)">element "auc:EnergyFlowDirection" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:HDDBaseTemperature)">element "auc:HDDBaseTemperature" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:HeatingDegreeDays)">element "auc:HeatingDegreeDays" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:IntervalDuration)">element "auc:IntervalDuration" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:IntervalDurationUnits)">element "auc:IntervalDurationUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:IntervalFrequency) &gt;= 1">element "auc:IntervalFrequency" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:IntervalReading) &gt;= 0">element "auc:IntervalReading" is OPTIONAL</sch:assert>
+      <sch:assert test="not(auc:PeakType)">element "auc:PeakType" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:Phase)">element "auc:Phase" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:ReadingType) &gt;= 1">element "auc:ReadingType" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:ResourceUseID) &gt;= 0">element "auc:ResourceUseID" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:StartTimestamp) &gt;= 0">element "auc:StartTimestamp" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:TimeSeriesReadingQuantity) &gt;= 1">element "auc:TimeSeriesReadingQuantity" is REQUIRED</sch:assert>
       <sch:assert test="not(auc:UserDefinedFields)">element "auc:UserDefinedFields" is NOT RECOMMENDED</sch:assert>
-      <sch:assert test="not(auc:hDDBaseTemperature)">element "auc:hDDBaseTemperature" is NOT RECOMMENDED</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Reports/auc:Report/auc:Scenarios/auc:Scenario[(count(auc:ScenarioType/auc:Other) &gt; 0) and (auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Other Scenario Type']/auc:FieldValue/text() = 'Audit Template Energy Deliveries')]/auc:TimeSeriesData/auc:TimeSeries/auc:IntervalFrequency">
       <sch:assert test="contains('_Day_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "Day"</sch:assert>
@@ -1521,16 +1701,19 @@
       <sch:assert test="not(auc:CoolingDegreeDays)">element "auc:CoolingDegreeDays" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:EndTimestamp) &gt;= 0">element "auc:EndTimestamp" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:EnergyFlowDirection)">element "auc:EnergyFlowDirection" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:HDDBaseTemperature)">element "auc:HDDBaseTemperature" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:HeatingDegreeDays)">element "auc:HeatingDegreeDays" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:IntervalDuration)">element "auc:IntervalDuration" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:IntervalDurationUnits)">element "auc:IntervalDurationUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:IntervalFrequency) &gt;= 1">element "auc:IntervalFrequency" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:IntervalReading) &gt;= 0">element "auc:IntervalReading" is OPTIONAL</sch:assert>
+      <sch:assert test="not(auc:PeakType)">element "auc:PeakType" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:Phase)">element "auc:Phase" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:ReadingType) &gt;= 1">element "auc:ReadingType" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:ResourceUseID) &gt;= 0">element "auc:ResourceUseID" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:StartTimestamp) &gt;= 0">element "auc:StartTimestamp" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:TimeSeriesReadingQuantity) &gt;= 1">element "auc:TimeSeriesReadingQuantity" is REQUIRED</sch:assert>
       <sch:assert test="not(auc:UserDefinedFields)">element "auc:UserDefinedFields" is NOT RECOMMENDED</sch:assert>
-      <sch:assert test="not(auc:hDDBaseTemperature)">element "auc:hDDBaseTemperature" is NOT RECOMMENDED</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Reports/auc:Report/auc:Scenarios/auc:Scenario[(count(auc:ScenarioType/auc:Other) &gt; 0) and (auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Other Scenario Type']/auc:FieldValue/text() = 'Audit Template Energy Meter Readings')]/auc:TimeSeriesData/auc:TimeSeries/auc:IntervalFrequency">
       <sch:assert test="contains('_Other_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "Other"</sch:assert>
@@ -1608,6 +1791,8 @@
       <sch:assert test="count(auc:EndUse) &gt;= 0">element "auc:EndUse" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:EnergyResource) &gt;= 0">element "auc:EnergyResource" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:FuelUseIntensity)">element "auc:FuelUseIntensity" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:MeterID)">element "auc:MeterID" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:ParentResourceUseID)">element "auc:ParentResourceUseID" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PeakResourceUnits)">element "auc:PeakResourceUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PercentEndUse)">element "auc:PercentEndUse" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PercentResource)">element "auc:PercentResource" is NOT RECOMMENDED</sch:assert>
@@ -1722,6 +1907,8 @@
       <sch:assert test="count(auc:EndUse) &gt;= 0">element "auc:EndUse" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:EnergyResource) &gt;= 0">element "auc:EnergyResource" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:FuelUseIntensity)">element "auc:FuelUseIntensity" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:MeterID)">element "auc:MeterID" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:ParentResourceUseID)">element "auc:ParentResourceUseID" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PeakResourceUnits)">element "auc:PeakResourceUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PercentEndUse)">element "auc:PercentEndUse" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PercentResource)">element "auc:PercentResource" is NOT RECOMMENDED</sch:assert>
@@ -1902,6 +2089,8 @@
       <sch:assert test="not(auc:EndUse)">element "auc:EndUse" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:EnergyResource) &gt;= 0">element "auc:EnergyResource" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:FuelUseIntensity)">element "auc:FuelUseIntensity" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:MeterID)">element "auc:MeterID" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:ParentResourceUseID)">element "auc:ParentResourceUseID" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PeakResourceUnits)">element "auc:PeakResourceUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PercentEndUse)">element "auc:PercentEndUse" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PercentResource)">element "auc:PercentResource" is NOT RECOMMENDED</sch:assert>
@@ -1956,16 +2145,19 @@
       <sch:assert test="not(auc:CoolingDegreeDays)">element "auc:CoolingDegreeDays" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:EndTimestamp) &gt;= 0">element "auc:EndTimestamp" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:EnergyFlowDirection)">element "auc:EnergyFlowDirection" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:HDDBaseTemperature)">element "auc:HDDBaseTemperature" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:HeatingDegreeDays)">element "auc:HeatingDegreeDays" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:IntervalDuration)">element "auc:IntervalDuration" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:IntervalDurationUnits)">element "auc:IntervalDurationUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:IntervalFrequency) &gt;= 1">element "auc:IntervalFrequency" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:IntervalReading) &gt;= 0">element "auc:IntervalReading" is OPTIONAL</sch:assert>
+      <sch:assert test="not(auc:PeakType)">element "auc:PeakType" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:Phase)">element "auc:Phase" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:ReadingType) &gt;= 1">element "auc:ReadingType" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:ResourceUseID) &gt;= 0">element "auc:ResourceUseID" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:StartTimestamp) &gt;= 0">element "auc:StartTimestamp" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:TimeSeriesReadingQuantity) &gt;= 1">element "auc:TimeSeriesReadingQuantity" is REQUIRED</sch:assert>
       <sch:assert test="not(auc:UserDefinedFields)">element "auc:UserDefinedFields" is NOT RECOMMENDED</sch:assert>
-      <sch:assert test="not(auc:hDDBaseTemperature)">element "auc:hDDBaseTemperature" is NOT RECOMMENDED</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Reports/auc:Report/auc:Scenarios/auc:Scenario[(count(auc:ScenarioType/auc:Other) &gt; 0) and (auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Other Scenario Type']/auc:FieldValue/text() = 'Audit Template Shared Resource System Annual Summary')]/auc:TimeSeriesData/auc:TimeSeries/auc:IntervalFrequency">
       <sch:assert test="contains('_Annual_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "Annual"</sch:assert>
@@ -2043,6 +2235,8 @@
       <sch:assert test="count(auc:EndUse) &gt;= 0">element "auc:EndUse" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:EnergyResource) &gt;= 0">element "auc:EnergyResource" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:FuelUseIntensity)">element "auc:FuelUseIntensity" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:MeterID)">element "auc:MeterID" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:ParentResourceUseID)">element "auc:ParentResourceUseID" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PeakResourceUnits)">element "auc:PeakResourceUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PercentEndUse)">element "auc:PercentEndUse" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PercentResource)">element "auc:PercentResource" is NOT RECOMMENDED</sch:assert>
@@ -2136,6 +2330,7 @@
       <sch:assert test="not(auc:CDDBaseTemperature)">element "auc:CDDBaseTemperature" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:HDDBaseTemperature)">element "auc:HDDBaseTemperature" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:LinkedPremises) &gt;= 1">element "auc:LinkedPremises" is REQUIRED</sch:assert>
+      <sch:assert test="not(auc:NonquantifiableFactors)">element "auc:NonquantifiableFactors" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:Normalization)">element "auc:Normalization" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:ResourceUses)">element "auc:ResourceUses" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:ScenarioName) &gt;= 0">element "auc:ScenarioName" is OPTIONAL</sch:assert>
@@ -2189,6 +2384,7 @@
       <sch:assert test="not(auc:AnnualWaterSavings)">element "auc:AnnualWaterSavings" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:AssetScore)">element "auc:AssetScore" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:CalculationMethodType)">element "auc:CalculationMethodType" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:CostCategory)">element "auc:CostCategory" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:CostEffectivenessScreeningMethod)">element "auc:CostEffectivenessScreeningMethod" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:ENERGYSTARScore)">element "auc:ENERGYSTARScore" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:EquipmentDisposalAndSalvageCosts)">element "auc:EquipmentDisposalAndSalvageCosts" is NOT RECOMMENDED</sch:assert>
@@ -2208,6 +2404,7 @@
       <sch:assert test="not(auc:ProjectMarkup)">element "auc:ProjectMarkup" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:RecurringIncentives)">element "auc:RecurringIncentives" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:ReferenceCase)">element "auc:ReferenceCase" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:SimpleImpactAnalysis)">element "auc:SimpleImpactAnalysis" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:SimplePayback)">element "auc:SimplePayback" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:SummerPeakElectricityReduction)">element "auc:SummerPeakElectricityReduction" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:UserDefinedFields)">element "auc:UserDefinedFields" is NOT RECOMMENDED</sch:assert>
@@ -2480,6 +2677,7 @@
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Reports/auc:Report[auc:LinkedPremisesOrSystem/auc:Building/auc:LinkedBuildingID]/auc:Utilities/auc:Utility">
       <sch:assert test="count(@ID) &gt;= 1">element "@ID" is REQUIRED</sch:assert>
+      <sch:assert test="not(auc:EIAUtilityID)">element "auc:EIAUtilityID" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:ElectricDistributionUtility)">element "auc:ElectricDistributionUtility" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:FuelInterruptibility)">element "auc:FuelInterruptibility" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:MeteringConfiguration) &gt;= 0">element "auc:MeteringConfiguration" is OPTIONAL</sch:assert>
@@ -2526,6 +2724,7 @@
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Schedules/auc:Schedule">
       <sch:assert test="count(@ID) &gt;= 1">element "@ID" is REQUIRED</sch:assert>
       <sch:assert test="not(@Status)">element "@Status" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:LinkedPremises)">element "auc:LinkedPremises" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:ScheduleDetails) &gt;= 0">element "auc:ScheduleDetails" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:SchedulePeriodBeginDate)">element "auc:SchedulePeriodBeginDate" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:SchedulePeriodEndDate)">element "auc:SchedulePeriodEndDate" is NOT RECOMMENDED</sch:assert>
@@ -2606,6 +2805,7 @@
       <sch:assert test="count(auc:HistoricalLandmark) &gt;= 0">element "auc:HistoricalLandmark" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:HorizontalSurroundings)">element "auc:HorizontalSurroundings" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:Latitude) &gt;= 0">element "auc:Latitude" is OPTIONAL</sch:assert>
+      <sch:assert test="not(auc:LightingAutomationSystem)">element "auc:LightingAutomationSystem" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:Longitude) &gt;= 0">element "auc:Longitude" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:NAICSCode)">element "auc:NAICSCode" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:NumberOfBusinesses)">element "auc:NumberOfBusinesses" is NOT RECOMMENDED</sch:assert>
@@ -2613,6 +2813,7 @@
       <sch:assert test="not(auc:OccupancyClassification)">element "auc:OccupancyClassification" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:OccupancyLevels)">element "auc:OccupancyLevels" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:OperatorType)">element "auc:OperatorType" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:OverallDoorToWallRatio)">element "auc:OverallDoorToWallRatio" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:OverallWindowToWallRatio) &gt;= 0">element "auc:OverallWindowToWallRatio" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:Ownership) &gt;= 0">element "auc:Ownership" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:OwnershipStatus)">element "auc:OwnershipStatus" is NOT RECOMMENDED</sch:assert>
@@ -2704,6 +2905,7 @@
       <sch:assert test="count(auc:FloorArea) &gt;= 0">element "auc:FloorArea" is OPTIONAL</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:FloorAreas/auc:FloorArea">
+      <sch:assert test="not(auc:ExcludedSectionIDs)">element "auc:ExcludedSectionIDs" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:FloorAreaCustomName)">element "auc:FloorAreaCustomName" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:FloorAreaPercentage)">element "auc:FloorAreaPercentage" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:FloorAreaType) &gt;= 1">element "auc:FloorAreaType" is REQUIRED</sch:assert>
@@ -2777,6 +2979,7 @@
       <sch:assert test="not(auc:FloorsPartiallyBelowGrade)">element "auc:FloorsPartiallyBelowGrade" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:Latitude)">element "auc:Latitude" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:Longitude)">element "auc:Longitude" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:NumberOfSides)">element "auc:NumberOfSides" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PerimeterZoneDepth)">element "auc:PerimeterZoneDepth" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PremisesIdentifiers)">element "auc:PremisesIdentifiers" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:PremisesName)">element "auc:PremisesName" is NOT RECOMMENDED</sch:assert>
@@ -2804,6 +3007,7 @@
       <sch:assert test="not(auc:Foundations)">element "auc:Foundations" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:OccupancyClassification) &gt;= 0">element "auc:OccupancyClassification" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:OccupancyLevels) &gt;= 0">element "auc:OccupancyLevels" is OPTIONAL</sch:assert>
+      <sch:assert test="count(auc:OriginalOccupancyClassification) &gt;= 0">element "auc:OriginalOccupancyClassification" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:Roofs)">element "auc:Roofs" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:Sides)">element "auc:Sides" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:ThermalZones) &gt;= 0">element "auc:ThermalZones" is OPTIONAL</sch:assert>
@@ -2814,6 +3018,7 @@
       <sch:assert test="count(auc:FloorArea) &gt;= 0">element "auc:FloorArea" is OPTIONAL</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType = 'Space function']/auc:FloorAreas/auc:FloorArea">
+      <sch:assert test="not(auc:ExcludedSectionIDs)">element "auc:ExcludedSectionIDs" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:FloorAreaCustomName)">element "auc:FloorAreaCustomName" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:FloorAreaPercentage)">element "auc:FloorAreaPercentage" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:FloorAreaType) &gt;= 1">element "auc:FloorAreaType" is REQUIRED</sch:assert>
@@ -2843,6 +3048,9 @@
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType = 'Space function']/auc:OccupancyLevels/auc:OccupancyLevel/auc:OccupantQuantityType">
       <sch:assert test="contains('_Peak total occupants_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "Peak total occupants"</sch:assert>
+    </sch:rule>
+    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType = 'Space function']/auc:OriginalOccupancyClassification">
+      <sch:assert test="contains('_Assembly-Arcade or casino without lodging_ _Assembly-Convention center_ _Assembly-Cultural entertainment_ _Assembly-Indoor arena_ _Assembly-Public_ _Assembly-Race track_ _Assembly-Religious_ _Assembly-Social entertainment_ _Assembly-Stadium_ _Assembly-Stadium (closed)_ _Assembly-Stadium (open)_ _Bank_ _Bar_ _Bar-Nightclub_ _Convenience store_ _Courthouse_ _Data center_ _Education_ _Education-Adult_ _Education-Higher_ _Education-Preschool or daycare_ _Education-Primary_ _Education-Vocational_ _Energy generation plant_ _Food sales_ _Food sales-Grocery store_ _Food service_ _Food service-Fast_ _Food service-Full_ _Gas station_ _Health care_ _Health care-Inpatient hospital_ _Health care-Outpatient facility_ _Health care-Outpatient non-diagnostic_ _Health care-Outpatient rehabilitation_ _Health care-Outpatient surgical_ _Health care-Skilled nursing facility_ _Health care-Veterinary_ _Industrial manufacturing plant_ _Laboratory_ _Lodging_ _Lodging with extended amenities_ _Lodging-Barracks_ _Lodging-Institutional_ _Media center_ _Mixed-use commercial_ _Multifamily_ _Non-office work area_ _Office_ _Office-Financial_ _Other_ _Parking_ _Public safety station_ _Public safety station-Fire_ _Public safety station-Police_ _Public safety-Correctional facility_ _Recreation_ _Recreation-Bowling alley_ _Recreation-Fitness center_ _Recreation-Ice rink_ _Recreation-Pool_ _Recreation-Roller rink_ _Residential_ _Retail_ _Retail-Automobile dealership_ _Retail-Enclosed mall_ _Retail-Hypermarket_ _Retail-Mall_ _Retail-Strip mall_ _Science park_ _Service_ _Service-Beauty and health_ _Service-Postal_ _Service-Repair_ _Shipping and receiving_ _Sport play area_ _Stage_ _Transportation terminal_ _Utility_ _Vivarium_ _Warehouse-Refrigerated_ _Warehouse-Self-storage_ _Warehouse-Unrefrigerated_ _Water treatment-Drinking water and distribution_ _Water treatment-Wastewater_ _Zoo_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "Assembly-Arcade or casino without lodging", "Assembly-Convention center", "Assembly-Cultural entertainment", "Assembly-Indoor arena", "Assembly-Public", "Assembly-Race track", "Assembly-Religious", "Assembly-Social entertainment", "Assembly-Stadium", "Assembly-Stadium (closed)", "Assembly-Stadium (open)", "Bank", "Bar", "Bar-Nightclub", "Convenience store", "Courthouse", "Data center", "Education", "Education-Adult", "Education-Higher", "Education-Preschool or daycare", "Education-Primary", "Education-Vocational", "Energy generation plant", "Food sales", "Food sales-Grocery store", "Food service", "Food service-Fast", "Food service-Full", "Gas station", "Health care", "Health care-Inpatient hospital", "Health care-Outpatient facility", "Health care-Outpatient non-diagnostic", "Health care-Outpatient rehabilitation", "Health care-Outpatient surgical", "Health care-Skilled nursing facility", "Health care-Veterinary", "Industrial manufacturing plant", "Laboratory", "Lodging", "Lodging with extended amenities", "Lodging-Barracks", "Lodging-Institutional", "Media center", "Mixed-use commercial", "Multifamily", "Non-office work area", "Office", "Office-Financial", "Other", "Parking", "Public safety station", "Public safety station-Fire", "Public safety station-Police", "Public safety-Correctional facility", "Recreation", "Recreation-Bowling alley", "Recreation-Fitness center", "Recreation-Ice rink", "Recreation-Pool", "Recreation-Roller rink", "Residential", "Retail", "Retail-Automobile dealership", "Retail-Enclosed mall", "Retail-Hypermarket", "Retail-Mall", "Retail-Strip mall", "Science park", "Service", "Service-Beauty and health", "Service-Postal", "Service-Repair", "Shipping and receiving", "Sport play area", "Stage", "Transportation terminal", "Utility", "Vivarium", "Warehouse-Refrigerated", "Warehouse-Self-storage", "Warehouse-Unrefrigerated", "Water treatment-Drinking water and distribution", "Water treatment-Wastewater", or "Zoo"</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType = 'Space function']/auc:ThermalZones">
       <sch:assert test="count(auc:ThermalZone) &gt;= 0">element "auc:ThermalZone" is OPTIONAL</sch:assert>
@@ -2894,7 +3102,6 @@
       <sch:assert test="count(auc:UserDefinedField[auc:FieldName/text() = 'Miscellaneous Electric Load Is Not Applicable']/auc:FieldValue) &gt;= 0">element "auc:UserDefinedField[auc:FieldName/text() = 'Miscellaneous Electric Load Is Not Applicable']/auc:FieldValue" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:UserDefinedField[auc:FieldName/text() = 'Miscellaneous Electric Load']/auc:FieldValue) &gt;= 0">element "auc:UserDefinedField[auc:FieldName/text() = 'Miscellaneous Electric Load']/auc:FieldValue" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:UserDefinedField[auc:FieldName/text() = 'Occupancy Classification Is Not Applicable']/auc:FieldValue) &gt;= 0">element "auc:UserDefinedField[auc:FieldName/text() = 'Occupancy Classification Is Not Applicable']/auc:FieldValue" is OPTIONAL</sch:assert>
-      <sch:assert test="count(auc:UserDefinedField[auc:FieldName/text() = 'Original Occupancy Classification']/auc:FieldValue) &gt;= 0">element "auc:UserDefinedField[auc:FieldName/text() = 'Original Occupancy Classification']/auc:FieldValue" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:UserDefinedField[auc:FieldName/text() = 'Percentage Dwellings Occupied Is Not Applicable']/auc:FieldValue) &gt;= 0">element "auc:UserDefinedField[auc:FieldName/text() = 'Percentage Dwellings Occupied Is Not Applicable']/auc:FieldValue" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:UserDefinedField[auc:FieldName/text() = 'Percentage Dwellings Occupied']/auc:FieldValue) &gt;= 0">element "auc:UserDefinedField[auc:FieldName/text() = 'Percentage Dwellings Occupied']/auc:FieldValue" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:UserDefinedField[auc:FieldName/text() = 'Principal HVAC System Type']/auc:FieldValue) &gt;= 0">element "auc:UserDefinedField[auc:FieldName/text() = 'Principal HVAC System Type']/auc:FieldValue" is OPTIONAL</sch:assert>
@@ -2909,7 +3116,7 @@
       <sch:assert test="count(auc:FieldValue) &gt;= 1">element "auc:FieldValue" is REQUIRED</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType = 'Space function']/auc:UserDefinedFields/auc:UserDefinedField/auc:FieldName">
-      <sch:assert test="contains('_Floor Area For Gross Is Not Applicable_ _Miscellaneous Electric Load_ _Miscellaneous Electric Load Is Not Applicable_ _Occupancy Classification Is Not Applicable_ _Original Occupancy Classification_ _Percentage Dwellings Occupied_ _Percentage Dwellings Occupied Is Not Applicable_ _Principal HVAC System Type_ _Principal Lighting System Type_ _Quantity Of Computers_ _Quantity Of Dwellings_ _Quantity Of Dwellings Is Not Applicable_ _Section Notes For Not Applicable_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "Floor Area For Gross Is Not Applicable", "Miscellaneous Electric Load", "Miscellaneous Electric Load Is Not Applicable", "Occupancy Classification Is Not Applicable", "Original Occupancy Classification", "Percentage Dwellings Occupied", "Percentage Dwellings Occupied Is Not Applicable", "Principal HVAC System Type", "Principal Lighting System Type", "Quantity Of Computers", "Quantity Of Dwellings", "Quantity Of Dwellings Is Not Applicable", or "Section Notes For Not Applicable"</sch:assert>
+      <sch:assert test="contains('_Floor Area For Gross Is Not Applicable_ _Miscellaneous Electric Load_ _Miscellaneous Electric Load Is Not Applicable_ _Occupancy Classification Is Not Applicable_ _Percentage Dwellings Occupied_ _Percentage Dwellings Occupied Is Not Applicable_ _Principal HVAC System Type_ _Principal Lighting System Type_ _Quantity Of Computers_ _Quantity Of Dwellings_ _Quantity Of Dwellings Is Not Applicable_ _Section Notes For Not Applicable_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "Floor Area For Gross Is Not Applicable", "Miscellaneous Electric Load", "Miscellaneous Electric Load Is Not Applicable", "Occupancy Classification Is Not Applicable", "Percentage Dwellings Occupied", "Percentage Dwellings Occupied Is Not Applicable", "Principal HVAC System Type", "Principal Lighting System Type", "Quantity Of Computers", "Quantity Of Dwellings", "Quantity Of Dwellings Is Not Applicable", or "Section Notes For Not Applicable"</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType = 'Space function']/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Floor Area For Gross Is Not Applicable']/auc:FieldValue">
       <sch:assert test="contains('_false_ _true_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "false" or "true"</sch:assert>
@@ -2922,9 +3129,6 @@
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType = 'Space function']/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Occupancy Classification Is Not Applicable']/auc:FieldValue">
       <sch:assert test="contains('_false_ _true_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "false" or "true"</sch:assert>
-    </sch:rule>
-    <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType = 'Space function']/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Original Occupancy Classification']/auc:FieldValue">
-      <sch:assert test="contains('_Assembly-Arcade or casino without lodging_ _Assembly-Convention center_ _Assembly-Cultural entertainment_ _Assembly-Indoor arena_ _Assembly-Public_ _Assembly-Race track_ _Assembly-Religious_ _Assembly-Social entertainment_ _Assembly-Stadium_ _Assembly-Stadium (closed)_ _Assembly-Stadium (open)_ _Bank_ _Bar_ _Bar-Nightclub_ _Convenience store_ _Courthouse_ _Data center_ _Education_ _Education-Adult_ _Education-Higher_ _Education-Preschool or daycare_ _Education-Primary_ _Education-Vocational_ _Energy generation plant_ _Food sales_ _Food sales-Grocery store_ _Food service_ _Food service-Fast_ _Food service-Full_ _Gas station_ _Health care_ _Health care-Inpatient hospital_ _Health care-Outpatient facility_ _Health care-Outpatient non-diagnostic_ _Health care-Outpatient rehabilitation_ _Health care-Outpatient surgical_ _Health care-Skilled nursing facility_ _Health care-Veterinary_ _Industrial manufacturing plant_ _Laboratory_ _Lodging_ _Lodging with extended amenities_ _Lodging-Barracks_ _Lodging-Institutional_ _Media center_ _Mixed-use commercial_ _Multifamily_ _Non-office work area_ _Office_ _Office-Financial_ _Other_ _Parking_ _Public safety station_ _Public safety station-Fire_ _Public safety station-Police_ _Public safety-Correctional facility_ _Recreation_ _Recreation-Bowling alley_ _Recreation-Fitness center_ _Recreation-Ice rink_ _Recreation-Pool_ _Recreation-Roller rink_ _Residential_ _Retail_ _Retail-Automobile dealership_ _Retail-Enclosed mall_ _Retail-Hypermarket_ _Retail-Mall_ _Retail-Strip mall_ _Science park_ _Service_ _Service-Beauty and health_ _Service-Postal_ _Service-Repair_ _Shipping and receiving_ _Sport play area_ _Stage_ _Transportation terminal_ _Utility_ _Vivarium_ _Warehouse-Refrigerated_ _Warehouse-Self-storage_ _Warehouse-Unrefrigerated_ _Water treatment-Drinking water and distribution_ _Water treatment-Wastewater_ _Zoo_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "Assembly-Arcade or casino without lodging", "Assembly-Convention center", "Assembly-Cultural entertainment", "Assembly-Indoor arena", "Assembly-Public", "Assembly-Race track", "Assembly-Religious", "Assembly-Social entertainment", "Assembly-Stadium", "Assembly-Stadium (closed)", "Assembly-Stadium (open)", "Bank", "Bar", "Bar-Nightclub", "Convenience store", "Courthouse", "Data center", "Education", "Education-Adult", "Education-Higher", "Education-Preschool or daycare", "Education-Primary", "Education-Vocational", "Energy generation plant", "Food sales", "Food sales-Grocery store", "Food service", "Food service-Fast", "Food service-Full", "Gas station", "Health care", "Health care-Inpatient hospital", "Health care-Outpatient facility", "Health care-Outpatient non-diagnostic", "Health care-Outpatient rehabilitation", "Health care-Outpatient surgical", "Health care-Skilled nursing facility", "Health care-Veterinary", "Industrial manufacturing plant", "Laboratory", "Lodging", "Lodging with extended amenities", "Lodging-Barracks", "Lodging-Institutional", "Media center", "Mixed-use commercial", "Multifamily", "Non-office work area", "Office", "Office-Financial", "Other", "Parking", "Public safety station", "Public safety station-Fire", "Public safety station-Police", "Public safety-Correctional facility", "Recreation", "Recreation-Bowling alley", "Recreation-Fitness center", "Recreation-Ice rink", "Recreation-Pool", "Recreation-Roller rink", "Residential", "Retail", "Retail-Automobile dealership", "Retail-Enclosed mall", "Retail-Hypermarket", "Retail-Mall", "Retail-Strip mall", "Science park", "Service", "Service-Beauty and health", "Service-Postal", "Service-Repair", "Shipping and receiving", "Sport play area", "Stage", "Transportation terminal", "Utility", "Vivarium", "Warehouse-Refrigerated", "Warehouse-Self-storage", "Warehouse-Unrefrigerated", "Water treatment-Drinking water and distribution", "Water treatment-Wastewater", or "Zoo"</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType = 'Space function']/auc:UserDefinedFields/auc:UserDefinedField[auc:FieldName/text() = 'Percentage Dwellings Occupied Is Not Applicable']/auc:FieldValue">
       <sch:assert test="contains('_false_ _true_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "false" or "true"</sch:assert>
@@ -2954,6 +3158,7 @@
       <sch:assert test="count(auc:Foundations) &gt;= 0">element "auc:Foundations" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:OccupancyClassification)">element "auc:OccupancyClassification" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:OccupancyLevels)">element "auc:OccupancyLevels" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:OriginalOccupancyClassification)">element "auc:OriginalOccupancyClassification" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:Roofs) &gt;= 0">element "auc:Roofs" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:Sides) &gt;= 0">element "auc:Sides" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:ThermalZones)">element "auc:ThermalZones" is NOT RECOMMENDED</sch:assert>
@@ -3015,11 +3220,14 @@
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType = 'Whole building']/auc:Sides/auc:Side">
       <sch:assert test="count(auc:DoorID) &gt;= 0">element "auc:DoorID" is OPTIONAL</sch:assert>
+      <sch:assert test="not(auc:DoorIDs)">element "auc:DoorIDs" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:SideLength)">element "auc:SideLength" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:SideNumber)">element "auc:SideNumber" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:ThermalZoneIDs)">element "auc:ThermalZoneIDs" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:WallID) &gt;= 0">element "auc:WallID" is OPTIONAL</sch:assert>
+      <sch:assert test="not(auc:WallIDs)">element "auc:WallIDs" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:WindowID) &gt;= 0">element "auc:WindowID" is OPTIONAL</sch:assert>
+      <sch:assert test="not(auc:WindowIDs)">element "auc:WindowIDs" is NOT RECOMMENDED</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Sites/auc:Site/auc:Buildings/auc:Building/auc:Sections/auc:Section[auc:SectionType = 'Whole building']/auc:Sides/auc:Side/auc:DoorID">
       <sch:assert test="count(@IDref) &gt;= 1">element "@IDref" is REQUIRED</sch:assert>
@@ -3522,6 +3730,7 @@
       <sch:assert test="not(auc:ConveyanceLoadType)">element "auc:ConveyanceLoadType" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:ConveyancePeakPower)">element "auc:ConveyancePeakPower" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:ConveyanceStandbyPower)">element "auc:ConveyanceStandbyPower" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:ConveyanceSystemCondition)">element "auc:ConveyanceSystemCondition" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:ConveyanceSystemType) &gt;= 1">element "auc:ConveyanceSystemType" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:LinkedPremises) &gt;= 1">element "auc:LinkedPremises" is REQUIRED</sch:assert>
       <sch:assert test="not(auc:Location)">element "auc:Location" is NOT RECOMMENDED</sch:assert>
@@ -3797,6 +4006,8 @@
       <sch:assert test="not(auc:CapacityUnits)">element "auc:CapacityUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:Controls) &gt;= 0">element "auc:Controls" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:DailyHotWaterDraw)">element "auc:DailyHotWaterDraw" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:DomesticHotWaterSystemCondition)">element "auc:DomesticHotWaterSystemCondition" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:DomesticHotWaterSystemNotes)">element "auc:DomesticHotWaterSystemNotes" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:DomesticHotWaterType) &gt;= 1">element "auc:DomesticHotWaterType" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:HotWaterDistributionType) &gt;= 0">element "auc:HotWaterDistributionType" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:HotWaterSetpointTemperature)">element "auc:HotWaterSetpointTemperature" is NOT RECOMMENDED</sch:assert>
@@ -4000,6 +4211,7 @@
       <sch:assert test="count(auc:FloorArea) &gt;= 0">element "auc:FloorArea" is OPTIONAL</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Systems/auc:DomesticHotWaterSystems/auc:DomesticHotWaterSystem/auc:LinkedPremises/auc:Section/auc:LinkedSectionID/auc:FloorAreas/auc:FloorArea">
+      <sch:assert test="not(auc:ExcludedSectionIDs)">element "auc:ExcludedSectionIDs" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:FloorAreaCustomName)">element "auc:FloorAreaCustomName" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:FloorAreaPercentage) &gt;= 1">element "auc:FloorAreaPercentage" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:FloorAreaType) &gt;= 1">element "auc:FloorAreaType" is REQUIRED</sch:assert>
@@ -4129,6 +4341,7 @@
       <sch:assert test="not(auc:FanSize)">element "auc:FanSize" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:FanType)">element "auc:FanType" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:InstalledFlowRate)">element "auc:InstalledFlowRate" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:LinkedPremises)">element "auc:LinkedPremises" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:LinkedSystemIDs) &gt;= 1">element "auc:LinkedSystemIDs" is REQUIRED</sch:assert>
       <sch:assert test="not(auc:Location)">element "auc:Location" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:Manufacturer)">element "auc:Manufacturer" is NOT RECOMMENDED</sch:assert>
@@ -4509,6 +4722,7 @@
       <sch:assert test="not(auc:DuctSystems)">element "auc:DuctSystems" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:FrequencyOfMaintenance)">element "auc:FrequencyOfMaintenance" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:Location)">element "auc:Location" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:PrincipalHVACSystemType)">element "auc:PrincipalHVACSystemType" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:Priority)">element "auc:Priority" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:Quantity)">element "auc:Quantity" is NOT RECOMMENDED</sch:assert>
     </sch:rule>
@@ -4570,6 +4784,8 @@
       <sch:assert test="not(auc:YearInstalled)">element "auc:YearInstalled" is NOT RECOMMENDED</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Systems/auc:HVACSystems/auc:HVACSystem[auc:Plants]/auc:Plants/auc:CondenserPlants/auc:CondenserPlant/auc:GroundSource">
+      <sch:assert test="not(auc:Capacity)">element "auc:Capacity" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:CapacityUnits)">element "auc:CapacityUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:CondenserWaterTemperature)">element "auc:CondenserWaterTemperature" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:CondensingTemperature)">element "auc:CondensingTemperature" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:GroundSourceType) &gt;= 0">element "auc:GroundSourceType" is OPTIONAL</sch:assert>
@@ -4604,6 +4820,8 @@
       <sch:assert test="contains('_false_ _true_', concat('_', text(), '_'))">text "<sch:value-of select="text()"/>": element "text()" MUST be "false" or "true"</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Systems/auc:HVACSystems/auc:HVACSystem[auc:Plants]/auc:Plants/auc:CondenserPlants/auc:CondenserPlant/auc:WaterCooled">
+      <sch:assert test="not(auc:Capacity)">element "auc:Capacity" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:CapacityUnits)">element "auc:CapacityUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:CellCount)">element "auc:CellCount" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:CondenserWaterTemperature)">element "auc:CondenserWaterTemperature" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:CondensingTemperature)">element "auc:CondensingTemperature" is NOT RECOMMENDED</sch:assert>
@@ -4868,6 +5086,7 @@
       <sch:assert test="not(auc:BurnerTurndownRatio)">element "auc:BurnerTurndownRatio" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:BurnerType)">element "auc:BurnerType" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:BurnerYearInstalled) &gt;= 0">element "auc:BurnerYearInstalled" is OPTIONAL</sch:assert>
+      <sch:assert test="not(auc:Capacity)">element "auc:Capacity" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:CapacityUnits) &gt;= 1">element "auc:CapacityUnits" is REQUIRED</sch:assert>
       <sch:assert test="not(auc:CombustionEfficiency)">element "auc:CombustionEfficiency" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:CondensingOperation) &gt;= 0">element "auc:CondensingOperation" is OPTIONAL</sch:assert>
@@ -4947,6 +5166,7 @@
       <sch:assert test="count(auc:AnnualHeatingEfficiencyUnits) &gt;= 0">element "auc:AnnualHeatingEfficiencyUnits" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:AnnualHeatingEfficiencyValue) &gt;= 0">element "auc:AnnualHeatingEfficiencyValue" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:BoilerLWT)">element "auc:BoilerLWT" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:Capacity)">element "auc:Capacity" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:CapacityUnits) &gt;= 1">element "auc:CapacityUnits" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:DistrictHeatingType) &gt;= 0">element "auc:DistrictHeatingType" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:HotWaterBoilerMaximumFlowRate)">element "auc:HotWaterBoilerMaximumFlowRate" is NOT RECOMMENDED</sch:assert>
@@ -5256,6 +5476,7 @@
       <sch:assert test="not(auc:CapacityUnits)">element "auc:CapacityUnits" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:Controls)">element "auc:Controls" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:CoolingSourceID) &gt;= 0">element "auc:CoolingSourceID" is OPTIONAL</sch:assert>
+      <sch:assert test="not(auc:DeliveryCondition)">element "auc:DeliveryCondition" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:HeatingSourceID) &gt;= 0">element "auc:HeatingSourceID" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:Manufacturer)">element "auc:Manufacturer" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:ModelNumber)">element "auc:ModelNumber" is NOT RECOMMENDED</sch:assert>
@@ -5392,6 +5613,7 @@
       <sch:assert test="not(@Status)">element "@Status" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:AnnualHeatingEfficiencyUnits) &gt;= 0">element "auc:AnnualHeatingEfficiencyUnits" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:AnnualHeatingEfficiencyValue) &gt;= 0">element "auc:AnnualHeatingEfficiencyValue" is OPTIONAL</sch:assert>
+      <sch:assert test="not(auc:Capacity)">element "auc:Capacity" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:CapacityUnits) &gt;= 1">element "auc:CapacityUnits" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:Controls) &gt;= 0">element "auc:Controls" is OPTIONAL</sch:assert>
       <sch:assert test="not(auc:HeatingMedium)">element "auc:HeatingMedium" is NOT RECOMMENDED</sch:assert>
@@ -5627,6 +5849,7 @@
       <sch:assert test="count(auc:FloorArea) &gt;= 0">element "auc:FloorArea" is OPTIONAL</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Systems/auc:HVACSystems/auc:HVACSystem[not(auc:Plants)]/auc:LinkedPremises/auc:Section/auc:LinkedSectionID/auc:FloorAreas/auc:FloorArea">
+      <sch:assert test="not(auc:ExcludedSectionIDs)">element "auc:ExcludedSectionIDs" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:FloorAreaCustomName)">element "auc:FloorAreaCustomName" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:FloorAreaPercentage) &gt;= 1">element "auc:FloorAreaPercentage" is REQUIRED</sch:assert>
       <sch:assert test="count(auc:FloorAreaType) &gt;= 1">element "auc:FloorAreaType" is REQUIRED</sch:assert>
@@ -5863,6 +6086,7 @@
       <sch:assert test="not(auc:InstalledPower)">element "auc:InstalledPower" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:LampPower) &gt;= 0">element "auc:LampPower" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:LampType) &gt;= 0">element "auc:LampType" is OPTIONAL</sch:assert>
+      <sch:assert test="not(auc:LightingAutomationSystem)">element "auc:LightingAutomationSystem" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:LightingDirection)">element "auc:LightingDirection" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:LightingEfficacy)">element "auc:LightingEfficacy" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:LinkedPremises) &gt;= 1">element "auc:LinkedPremises" is REQUIRED</sch:assert>
@@ -6059,6 +6283,7 @@
       <sch:assert test="count(auc:FloorArea) &gt;= 0">element "auc:FloorArea" is OPTIONAL</sch:assert>
     </sch:rule>
     <sch:rule context="/auc:BuildingSync/auc:Facilities/auc:Facility/auc:Systems/auc:LightingSystems/auc:LightingSystem/auc:LinkedPremises/auc:Section/auc:LinkedSectionID/auc:FloorAreas/auc:FloorArea">
+      <sch:assert test="not(auc:ExcludedSectionIDs)">element "auc:ExcludedSectionIDs" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:FloorAreaCustomName)">element "auc:FloorAreaCustomName" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:FloorAreaPercentage) &gt;= 0">element "auc:FloorAreaPercentage" is OPTIONAL</sch:assert>
       <sch:assert test="count(auc:FloorAreaType) &gt;= 1">element "auc:FloorAreaType" is REQUIRED</sch:assert>
@@ -6107,6 +6332,7 @@
       <sch:assert test="not(auc:Controls)">element "auc:Controls" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:DriveEfficiency)">element "auc:DriveEfficiency" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:FullLoadAmps)">element "auc:FullLoadAmps" is NOT RECOMMENDED</sch:assert>
+      <sch:assert test="not(auc:LinkedPremises)">element "auc:LinkedPremises" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="count(auc:LinkedSystemIDs) &gt;= 1">element "auc:LinkedSystemIDs" is REQUIRED</sch:assert>
       <sch:assert test="not(auc:Location)">element "auc:Location" is NOT RECOMMENDED</sch:assert>
       <sch:assert test="not(auc:Manufacturer)">element "auc:Manufacturer" is NOT RECOMMENDED</sch:assert>
